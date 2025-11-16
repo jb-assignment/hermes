@@ -1,5 +1,3 @@
-val versions: Map<*, *> by rootProject.extra
-
 plugins {
     application
     `java-library`
@@ -17,9 +15,9 @@ dependencies {
     implementation(project(":hermes-metrics"))
     implementation(project(":hermes-schema"))
 
-    api("org.springframework.boot:spring-boot-starter:${versions["spring"]}")
-    api("org.eclipse.jetty:jetty-alpn-java-client:${versions["jetty"]}")
-    api("org.eclipse.jetty.http2:jetty-http2-client-transport:${versions["jetty"]}")
+    api(libs.spring.boot.starter)
+    api(libs.jetty.alpn.java.client)
+    api(libs.jetty.http2.client.transport)
     implementation("org.jctools:jctools-core:4.0.3")
     api("jakarta.jms:jakarta.jms-api:3.1.0")
     implementation("com.github.rholder:guava-retrying:2.0.0") {
@@ -32,18 +30,18 @@ dependencies {
     }
     api("com.google.cloud:google-cloud-pubsub:1.128.1")
     api("org.apache.httpcomponents.core5:httpcore5:5.2.4")
-    implementation("tech.allegro.schema.json2avro:converter:${versions["json2avro"]}")
+    implementation(libs.json2avro.converter)
 
     testImplementation(project(":hermes-test-helper"))
-    testImplementation("org.apache.curator:curator-test:${versions["curator"]}")
+    testImplementation(libs.curator.test)
     testImplementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
 
     testImplementation(project(":hermes-common"))
 
     testImplementation("org.awaitility:awaitility-groovy:4.2.1")
-    testImplementation("org.spockframework:spock-core:${versions["spock"]}")
-    testImplementation("org.spockframework:spock-junit4:${versions["spock"]}")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions["junit_jupiter"]}")
+    testImplementation(libs.spock.core)
+    testImplementation(libs.spock.junit4)
+    testRuntimeOnly(libs.junit.vintage.engine)
 
     sbeClasspath("uk.co.real-logic:sbe-all:1.31.1")
 }

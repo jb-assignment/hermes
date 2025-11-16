@@ -1,13 +1,11 @@
-val versions: Map<*, *> by rootProject.extra
-
 dependencies {
     implementation(project(":hermes-api"))
 
-    implementation("org.apache.avro:avro:${versions["avro"]}")
-    implementation("com.google.guava:guava:${versions["guava"]}")
+    implementation(libs.avro)
+    implementation(libs.guava)
 
     testImplementation(project(":hermes-test-helper"))
 
-    testImplementation("org.spockframework:spock-core:${versions["spock"]}")
-    testImplementation("org.spockframework:spock-junit4:${versions["spock"]}")
+    testImplementation(libs.spock.core)
+    testImplementation(libs.spock.junit4)
 }

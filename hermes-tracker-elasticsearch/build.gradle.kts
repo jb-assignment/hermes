@@ -1,5 +1,3 @@
-val versions: Map<*, *> by rootProject.extra
-
 plugins {
     `java-library`
 }
@@ -12,8 +10,8 @@ dependencies {
 
     testImplementation(project(":hermes-tracker", configuration = "testArtifacts"))
     testImplementation(project(":hermes-test-helper"))
-    testImplementation("org.spockframework:spock-core:${versions["spock"]}")
-    testImplementation("org.spockframework:spock-junit4:${versions["spock"]}")
-    testImplementation("org.testcontainers:elasticsearch:1.20.3")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions["junit_jupiter"]}")
+    testImplementation(libs.spock.core)
+    testImplementation(libs.spock.junit4)
+    testImplementation(libs.testcontainers.elasticsearch)
+    testRuntimeOnly(libs.junit.vintage.engine)
 }

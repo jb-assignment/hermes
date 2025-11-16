@@ -1,8 +1,7 @@
-val versions: Map<*, *> by rootProject.extra
 val chronicleMapJvmArgs: List<*> by rootProject.extra
 
 plugins {
-    id("me.champeau.jmh") version "0.7.2"
+    alias(libs.plugins.jmh)
 }
 
 val jmh: Configuration by configurations.getting

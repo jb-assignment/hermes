@@ -1,11 +1,9 @@
 import com.github.gradle.node.yarn.task.YarnTask
 
-val versions: Map<*, *> by rootProject.extra
-
 plugins {
     `java-library`
     application
-    id("com.github.node-gradle.node") version "7.0.2"
+    alias(libs.plugins.node.gradle)
 }
 
 application {
@@ -18,17 +16,17 @@ dependencies {
     api(project(":hermes-tracker"))
     implementation(project(":hermes-schema"))
 
-    api("org.springframework.boot:spring-boot-starter-web:${versions["spring"]}")
-    api("org.springframework.boot:spring-boot-starter-actuator:${versions["spring"]}")
-    api("org.springframework.boot:spring-boot-starter-jersey:${versions["spring"]}")
+    api(libs.spring.boot.starter.web)
+    api(libs.spring.boot.starter.actuator)
+    api(libs.spring.boot.starter.jersey)
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
-    implementation("org.glassfish.jersey.ext:jersey-mvc-freemarker:${versions["jersey"]}")
+    implementation(libs.jersey.mvc.freemarker)
 
     implementation("io.swagger:swagger-jersey2-jaxrs:1.6.14") {
         exclude(group = "javax.validation", module = "validation-api")
     }
 
-    implementation("org.apache.kafka:kafka-clients:${versions["kafka"]}")
+    implementation(libs.kafka.clients)
 
     implementation("commons-codec:commons-codec:1.16.1")
     implementation("com.github.java-json-tools:json-schema-validator:2.2.14")
@@ -38,19 +36,19 @@ dependencies {
 
     api("org.javers:javers-core:7.4.2")
 
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${versions["jackson"]}")
+    implementation(libs.jackson.datatype.jsr310)
     implementation("commons-io:commons-io:2.16.1")
 
     testImplementation(project(":hermes-test-helper"))
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${versions["spring"]}")
+    testImplementation(libs.spring.boot.starter.test)
 
-    testImplementation("org.spockframework:spock-core:${versions["spock"]}")
-    testImplementation("org.spockframework:spock-junit4:${versions["spock"]}")
-    testImplementation("org.spockframework:spock-spring:${versions["spock"]}")
-    testImplementation("org.apache.groovy:groovy-json:${versions["groovy"]}")
+    testImplementation(libs.spock.core)
+    testImplementation(libs.spock.junit4)
+    testImplementation(libs.spock.spring)
+    testImplementation(libs.groovy.json)
 
-    testImplementation("org.testcontainers:spock:${versions["testcontainers"]}")
-    testImplementation("org.testcontainers:kafka:${versions["testcontainers"]}")
+    testImplementation(libs.testcontainers.spock)
+    testImplementation(libs.testcontainers.kafka)
 }
 
 node {

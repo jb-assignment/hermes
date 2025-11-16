@@ -12,8 +12,8 @@ buildscript {
 plugins {
     java
     `maven-publish`
-    id("pl.allegro.tech.build.axion-release") version "1.21.0"
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
+    alias(libs.plugins.axion.release)
+    alias(libs.plugins.nexus.publish)
 }
 
 scmVersion {
@@ -55,34 +55,6 @@ allprojects {
     val scmVer = rootProject.extensions.getByName<VersionConfig>("scmVersion")
     version = scmVer.version
 
-    val versions = mapOf(
-        "kafka" to "2.8.2",
-        "guava" to "33.1.0-jre",
-        "jackson" to "2.17.0",
-        "jersey" to "3.1.6",
-        "jetty" to "12.0.8",
-        "curator" to "5.4.0",
-        "dropwizard_metrics" to "4.2.25",
-        "micrometer_metrics" to "1.13.0",
-        "wiremock" to "3.9.0",
-        "spock" to "2.4-M4-groovy-4.0",
-        "groovy" to "4.0.21",
-        "avro" to "1.11.3",
-        "json2avro" to "0.2.14",
-        // TODO: newest version requires subject alternative name in a certificate during host verification, current test cert does not have a one
-        "okhttp" to "3.9.1",
-        "undertow" to "2.3.12.Final",
-        "spring_web" to "6.1.6",
-        "failsafe" to "3.3.2",
-        "junit_jupiter" to "5.10.2",
-        "testcontainers" to "1.19.8",
-        "spring" to "3.2.4",
-        "assertj" to "3.25.3",
-        "allure" to "2.24.0"
-    )
-    
-    extra["versions"] = versions
-
     // https://chronicle.software/chronicle-support-java-17/
     val chronicleMapJvmArgs = listOf(
         "--add-exports=java.base/jdk.internal.ref=ALL-UNNAMED",
@@ -103,25 +75,27 @@ allprojects {
     }
 
     dependencies {
-        implementation("org.slf4j:slf4j-api:2.0.4")
-        implementation("org.apache.commons:commons-lang3:3.14.0")
+        val libs = rootProject.libs
+
+        implementation(libs.slf4j.api)
+        implementation(libs.commons.lang3)
 
         // Allure Spock adapter
-        testImplementation(platform("io.qameta.allure:allure-bom:${versions["allure"]}"))
-        testImplementation("io.qameta.allure:allure-spock2")
-        testImplementation("io.qameta.allure:allure-junit-platform")
+        testImplementation(platform(libs.allure.bom))
+        testImplementation(libs.allure.spock2)
+        testImplementation(libs.allure.junit.platform)
 
         // Spock framework
-        testImplementation(platform("org.spockframework:spock-bom:${versions["spock"]}"))
-        testImplementation("org.spockframework:spock-core")
+        testImplementation(platform(libs.spock.bom))
+        testImplementation(libs.spock.core)
 
-        testImplementation("junit:junit:4.11")
-        testImplementation("com.tngtech.java:junit-dataprovider:1.10.0")
-        testImplementation("org.mockito:mockito-core:5.11.0")
-        testImplementation("org.assertj:assertj-core:${versions["assertj"]}")
-        testImplementation("org.awaitility:awaitility:4.2.1")
+        testImplementation(libs.junit)
+        testImplementation(libs.junit.dataprovider)
+        testImplementation(libs.mockito.core)
+        testImplementation(libs.assertj.core)
+        testImplementation(libs.awaitility)
 
-        annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:${versions["spring"]}")
+        annotationProcessor(libs.spring.boot.configuration.processor)
     }
 
     tasks.test {
@@ -195,16 +169,16 @@ configure(subprojects - project(":integration-tests")) {
 }
 
 subprojects {
-    val versions = rootProject.extra["versions"] as Map<*, *>
-    
+    val libs = rootProject.libs
+
     configurations.all {
         exclude(group = "org.slf4j", module = "slf4j-log4j12")
         exclude(group = "log4j", module = "log4j")
         resolutionStrategy {
-            force("com.google.guava:guava:${versions["guava"]}")
-            force("com.fasterxml.jackson.core:jackson-databind:${versions["jackson"]}")
-            force("com.fasterxml.jackson.core:jackson-annotations:${versions["jackson"]}")
-            force("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${versions["jackson"]}")
+            force(libs.guava.get().toString())
+            force(libs.jackson.databind.get().toString())
+            force(libs.jackson.annotations.get().toString())
+            force(libs.jackson.jaxrs.json.provider.get().toString())
         }
     }
 
