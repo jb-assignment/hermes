@@ -1,3 +1,11 @@
+@file:Suppress("UnstableApiUsage")
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
     id("com.autonomousapps.build-health") version "3.0.2"
 }

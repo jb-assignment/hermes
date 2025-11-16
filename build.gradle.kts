@@ -1,13 +1,6 @@
 import java.time.Duration
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.publish.maven.MavenPublication
-import pl.allegro.tech.build.axion.release.domain.VersionConfig
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
 
 plugins {
     java
@@ -52,8 +45,7 @@ allprojects {
     apply(plugin = "groovy")
 
     group = "pl.allegro.tech.hermes"
-    val scmVer = rootProject.extensions.getByName<VersionConfig>("scmVersion")
-    version = scmVer.version
+    version = rootProject.scmVersion.version
 
     // https://chronicle.software/chronicle-support-java-17/
     val chronicleMapJvmArgs = listOf(
@@ -69,10 +61,6 @@ allprojects {
     )
     
     extra["chronicleMapJvmArgs"] = chronicleMapJvmArgs
-
-    repositories {
-        mavenCentral()
-    }
 
     dependencies {
         val libs = rootProject.libs
@@ -124,7 +112,7 @@ configure(subprojects - project(":integration-tests")) {
         (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
     }
 
-    configure<PublishingExtension> {
+    publishing {
         publications {
             create<MavenPublication>("mavenJava") {
                 artifactId = project.name
