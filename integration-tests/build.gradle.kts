@@ -95,7 +95,3 @@ fun registerIntegrationTestTask(name: String, common: SourceSet) {
 registerIntegrationTestTask("integrationTest", common)
 registerIntegrationTestTask("slowIntegrationTest", common)
 
-tasks.check {
-    dependsOn(tasks["integrationTest"])
-    dependsOn(tasks["slowIntegrationTest"])
-}

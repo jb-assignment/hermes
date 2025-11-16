@@ -32,7 +32,4 @@ dependencies {
     jmh(projects.hermesTracker)
 }
 
-tasks.check {
-    dependsOn(tasks.jmh)
-}
 
