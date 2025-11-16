@@ -12,10 +12,10 @@ jmh {
     zip64.set(true)
     verbosity.set("NORMAL")
     iterations.set(intProperty("jmh.iterations", 4))
-    timeOnIteration.set(stringProperty("jmh.timeOnIteration", "80s"))
+    timeOnIteration.set(stringProperty("jmh.timeOnIteration", "5s"))
     fork.set(intProperty("jmh.fork", 1))
     warmupIterations.set(intProperty("jmh.warmupIterations", 4))
-    warmup.set(stringProperty("jmh.timeOnWarmupIteration", "80s"))
+    warmup.set(stringProperty("jmh.timeOnWarmupIteration", "5s"))
     @Suppress("UNCHECKED_CAST")
     jvmArgs.set(listProperty("jmh.jvmArgs", listOf("-Xmx1g", "-Xms1g", "-XX:+UseG1GC") + (chronicleMapJvmArgs as List<String>)))
     failOnError.set(booleanProperty("jmh.failOnError", true))
@@ -26,9 +26,9 @@ jmh {
 }
 
 dependencies {
-    jmh("org.openjdk.jmh:jmh-core:1.37")
-    jmh("org.openjdk.jmh:jmh-generator-annprocess:1.37")
-    jmh("org.apache.httpcomponents:httpasyncclient:4.1.5")
+    jmh(libs.jmh.core)
+    jmh(libs.jmh.generator.annprocess)
+    jmh(libs.httpasyncclient)
     jmh(projects.hermesFrontend)
     jmh(projects.hermesTestHelper)
     jmh(projects.hermesCommon)
@@ -44,6 +44,10 @@ tasks.named<Jar>("jmhJar") {
 
 tasks.named<ProcessResources>("processJmhResources") {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.check {
+    dependsOn(jmh)
 }
 
 fun stringProperty(property: String, defaultValue: String): String {

@@ -35,6 +35,8 @@ axion-release = "1.21.0"
 nexus-publish = "1.0.0"
 node-gradle = "7.0.2"
 jmh = "0.7.2"
+jmh-core = "1.37"
+httpasyncclient = "4.1.5"
 jopt-simple = "5.0.4"
 swagger-jersey2 = "1.6.14"
 json-schema-validator = "2.2.14"
@@ -202,6 +204,11 @@ json-unit-fluent = { module = "net.javacrumbs.json-unit:json-unit-fluent", versi
 # HTTP Clients
 httpclient5 = { module = "org.apache.httpcomponents.client5:httpclient5", version.ref = "httpclient5" }
 httpcore5 = { module = "org.apache.httpcomponents.core5:httpcore5", version.ref = "httpcore5" }
+httpasyncclient = { module = "org.apache.httpcomponents:httpasyncclient", version.ref = "httpasyncclient" }
+
+# JMH
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version.ref = "jmh-core" }
+jmh-generator-annprocess = { module = "org.openjdk.jmh:jmh-generator-annprocess", version.ref = "jmh-core" }
 
 # Other
 jopt-simple = { module = "net.sf.jopt-simple:jopt-simple", version.ref = "jopt-simple" }
