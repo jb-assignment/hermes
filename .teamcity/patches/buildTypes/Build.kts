@@ -11,7 +11,10 @@ accordingly, and delete the patch script.
 changeBuildType(RelativeId("Build")) {
     requirements {
         add {
-            equals("teamcity.agent.hardwareCapacity", "Large")
+            equals("teamcity.agent.hardwareCapacity", "Large", "RQ_1")
         }
     }
+
+    expectDisabledSettings()
+    updateDisabledSettings("RQ_1")
 }
