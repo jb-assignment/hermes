@@ -41,4 +41,6 @@ include(
     "integration-tests"
 )
 
+includeBuild("build-logic")
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
