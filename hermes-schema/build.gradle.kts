@@ -1,10 +1,10 @@
 dependencies {
-    implementation(project(":hermes-api"))
+    implementation(projects.hermesApi)
 
     implementation(libs.avro)
     implementation(libs.guava.core)
 
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
 
     testImplementation(libs.spock.core)
     testImplementation(libs.spock.junit4)

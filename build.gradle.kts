@@ -1,6 +1,8 @@
 import java.time.Duration
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.publish.maven.MavenPublication
+import pl.allegro.tech.build.axion.release.domain.PredefinedVersionCreator
+import pl.allegro.tech.build.axion.release.domain.PredefinedVersionCreator.VERSION_WITH_BRANCH
 
 plugins {
     java
@@ -13,7 +15,7 @@ scmVersion {
     tag {
         prefix = "hermes-"
     }
-    versionCreator("versionWithBranch")
+    versionCreator = VERSION_WITH_BRANCH.versionCreator
 }
 
 java {

@@ -11,10 +11,10 @@ application {
 }
 
 dependencies {
-    api(project(":hermes-api"))
-    api(project(":hermes-common"))
-    api(project(":hermes-tracker"))
-    implementation(project(":hermes-schema"))
+    api(projects.hermesApi)
+    api(projects.hermesCommon)
+    api(projects.hermesTracker)
+    implementation(projects.hermesSchema)
 
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.actuator)
@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.jackson.datatype.jsr310)
     implementation(libs.commons.io)
 
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
     testImplementation(libs.spring.boot.starter.test)
 
     testImplementation(libs.spock.core)

@@ -20,6 +20,6 @@ dependencies {
 
     testImplementation(libs.spock.core)
     testImplementation(libs.spock.junit4)
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
     testRuntimeOnly(libs.junit.vintage.engine)
 }

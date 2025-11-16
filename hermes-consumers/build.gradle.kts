@@ -10,10 +10,10 @@ application {
 val sbeClasspath: Configuration by configurations.creating
 
 dependencies {
-    implementation(project(":hermes-common"))
-    api(project(":hermes-tracker"))
-    implementation(project(":hermes-metrics"))
-    implementation(project(":hermes-schema"))
+    implementation(projects.hermesCommon)
+    api(projects.hermesTracker)
+    implementation(projects.hermesMetrics)
+    implementation(projects.hermesSchema)
 
     api(libs.spring.boot.starter)
     api(libs.jetty.alpn.java.client)
@@ -32,11 +32,11 @@ dependencies {
     api(libs.httpcore5)
     implementation(libs.json2avro.converter)
 
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
     testImplementation(libs.curator.test)
     testImplementation(libs.jakarta.servlet.api)
 
-    testImplementation(project(":hermes-common"))
+    testImplementation(projects.hermesCommon)
 
     testImplementation(libs.awaitility.groovy)
     testImplementation(libs.spock.core)

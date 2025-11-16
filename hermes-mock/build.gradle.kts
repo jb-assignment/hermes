@@ -12,7 +12,7 @@ dependencies {
     implementation(libs.json2avro.converter)
     implementation(libs.junit.jupiter.api)
 
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
     testImplementation(libs.spock.core)
     testImplementation(libs.spock.junit4)
     testImplementation(libs.groovy.json)

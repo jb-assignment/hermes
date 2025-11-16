@@ -8,10 +8,10 @@ application {
 }
 
 dependencies {
-    implementation(project(":hermes-common"))
-    api(project(":hermes-tracker"))
-    implementation(project(":hermes-metrics"))
-    implementation(project(":hermes-schema"))
+    implementation(projects.hermesCommon)
+    api(projects.hermesTracker)
+    implementation(projects.hermesMetrics)
+    implementation(projects.hermesSchema)
 
     api(libs.spring.boot.starter)
     api(libs.undertow.core)
@@ -22,7 +22,7 @@ dependencies {
     implementation(libs.commons.io)
     implementation(libs.failsafe)
 
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
 
     testImplementation(libs.spock.core)
     testImplementation(libs.groovy.json)

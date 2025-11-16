@@ -6,12 +6,12 @@ val agent: Configuration by configurations.creating {
 }
 
 dependencies {
-    testImplementation(project(":hermes-common"))
-    testImplementation(project(":hermes-test-helper"))
-    testImplementation(project(":hermes-management"))
-    testImplementation(project(":hermes-consumers"))
-    testImplementation(project(":hermes-frontend"))
-    testImplementation(project(":hermes-client"))
+    testImplementation(projects.hermesCommon)
+    testImplementation(projects.hermesTestHelper)
+    testImplementation(projects.hermesManagement)
+    testImplementation(projects.hermesConsumers)
+    testImplementation(projects.hermesFrontend)
+    testImplementation(projects.hermesClient)
 
     testImplementation(libs.testcontainers)
     testImplementation(libs.testcontainers.gcloud)

@@ -4,9 +4,9 @@ plugins {
 }
 
 dependencies {
-    api(project(":hermes-api"))
-    api(project(":hermes-metrics"))
-    api(project(":hermes-schema"))
+    api(projects.hermesApi)
+    api(projects.hermesMetrics)
+    api(projects.hermesSchema)
 
     api(libs.curator.client) {
         exclude(module = "slf4j-log4j12")
@@ -46,7 +46,7 @@ dependencies {
 
     api(libs.jakarta.inject.api)
 
-    testImplementation(project(":hermes-test-helper"))
+    testImplementation(projects.hermesTestHelper)
 
     testImplementation(libs.jakarta.servlet.api)
 

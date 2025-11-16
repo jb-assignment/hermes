@@ -41,3 +41,4 @@ include(
     "integration-tests"
 )
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

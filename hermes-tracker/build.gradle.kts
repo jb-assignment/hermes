@@ -1,9 +1,9 @@
 val testArtifacts: Configuration by configurations.creating
 
 dependencies {
-    implementation(project(":hermes-api"))
-    implementation(project(":hermes-metrics"))
-    testImplementation(project(":hermes-test-helper"))
+    implementation(projects.hermesApi)
+    implementation(projects.hermesMetrics)
+    testImplementation(projects.hermesTestHelper)
     testRuntimeOnly(libs.junit.vintage.engine)
 }
 

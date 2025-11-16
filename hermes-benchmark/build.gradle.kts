@@ -29,10 +29,10 @@ dependencies {
     jmh("org.openjdk.jmh:jmh-core:1.37")
     jmh("org.openjdk.jmh:jmh-generator-annprocess:1.37")
     jmh("org.apache.httpcomponents:httpasyncclient:4.1.5")
-    jmh(project(":hermes-frontend"))
-    jmh(project(":hermes-test-helper"))
-    jmh(project(":hermes-common"))
-    jmh(project(":hermes-tracker"))
+    jmh(projects.hermesFrontend)
+    jmh(projects.hermesTestHelper)
+    jmh(projects.hermesCommon)
+    jmh(projects.hermesTracker)
 }
 
 // Workaround for duplicated `BenchmarkList` and `CompilerHints` files from META-INF directory in jmh jar.

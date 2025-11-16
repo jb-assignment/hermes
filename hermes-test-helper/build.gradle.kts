@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":hermes-api"))
-    implementation(project(":hermes-common"))
-    implementation(project(":hermes-consumers"))
+    implementation(projects.hermesApi)
+    implementation(projects.hermesCommon)
+    implementation(projects.hermesConsumers)
 
     implementation(libs.jersey.client)
     implementation(libs.jersey.hk2)
