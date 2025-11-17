@@ -14,11 +14,12 @@ version = "2025.07"
 
 project {
     sequentialChain {
+        gradle("Assemble", "assemble")
         parallel {
-            buildType(Gradle("Unit tests", "check"))
-            buildType(Gradle("Integration tests", "integrationTest"))
-            buildType(Gradle("Slow integration tests", "slowIntegrationTest"))
-            buildType(Gradle("JMH benchmark", "jmh"))
+            gradle("Unit tests", "check")
+            gradle("Integration tests", "integrationTest")
+            gradle("Slow integration tests", "slowIntegrationTest")
+            gradle("JMH benchmark", "jmh")
         }
     }
 }
@@ -26,6 +27,10 @@ project {
 fun Project.sequentialChain(block: CompoundStage.() -> Unit) {
     val buildTypes = sequential(block).buildTypes()
     buildTypes.forEach(::buildType)
+}
+
+fun CompoundStage.gradle(name: String, tasks: String, customizer: BuildType.() -> Unit = {}) {
+    buildType(Gradle(name, tasks).apply(customizer))
 }
 
 class Gradle(buildTypeName: String, tasks: String) : BuildType() {
