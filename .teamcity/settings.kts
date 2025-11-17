@@ -2,11 +2,11 @@ import jetbrains.buildServer.configs.kotlin.BuildType
 import jetbrains.buildServer.configs.kotlin.CompoundStage
 import jetbrains.buildServer.configs.kotlin.DslContext
 import jetbrains.buildServer.configs.kotlin.Project
+import jetbrains.buildServer.configs.kotlin.buildFeatures.parallelTests
 import jetbrains.buildServer.configs.kotlin.buildSteps.gradle
 import jetbrains.buildServer.configs.kotlin.buildSteps.nodeJS
 import jetbrains.buildServer.configs.kotlin.project
 import jetbrains.buildServer.configs.kotlin.sequential
-import jetbrains.buildServer.configs.kotlin.toId
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.version
 
@@ -14,13 +14,7 @@ version = "2025.07"
 
 project {
     sequentialChain {
-        gradle("Assemble", "assemble")
-        parallel {
-            gradle("Unit tests", "check")
-            gradle("Integration tests", "integrationTest")
-            gradle("Slow integration tests", "slowIntegrationTest")
-            gradle("JMH benchmark", "jmh")
-        }
+        buildType(AllTests)
     }
 }
 
@@ -29,29 +23,24 @@ fun Project.sequentialChain(block: CompoundStage.() -> Unit) {
     buildTypes.forEach(::buildType)
 }
 
-fun CompoundStage.gradle(name: String, tasks: String, customizer: BuildType.() -> Unit = {}) {
-    buildType(Gradle(name, tasks).apply(customizer))
-}
-
-class Gradle(buildTypeName: String, tasks: String) : BuildType() {
+object AllTests : BuildType() {
     init {
-        name = buildTypeName
-        id(buildTypeName.toId())
+        name = "All tests"
 
         vcs {
             root(DslContext.settingsRoot)
         }
 
         steps {
-            nodeJS {
-                name = "Install Node"
-                workingDir = "hermes-console"
-                shellScript = "npm install"
-            }
-
             gradle {
-                name = "Run tests"
-                this.tasks = tasks
+                name = "Run all tests"
+                tasks = "test integrationTest slowIntegrationTest jmh"
+            }
+        }
+
+        features {
+            parallelTests {
+                numberOfBatches = 10
             }
         }
 
