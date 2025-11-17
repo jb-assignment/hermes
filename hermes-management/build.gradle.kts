@@ -1,5 +1,3 @@
-import com.github.gradle.node.yarn.task.YarnTask
-
 plugins {
     `java-library`
     application
@@ -60,53 +58,5 @@ node {
     workDir = file("${layout.buildDirectory.get()}/nodejs")
     npmWorkDir = file("${layout.buildDirectory.get()}/npm")
     nodeProjectDir = file("${project.rootDir}/hermes-console")
-}
-
-tasks.named("yarnSetup") {
-    dependsOn(tasks.named("nodeSetup"))
-}
-
-tasks.named("yarn") {
-    dependsOn(tasks.named("npmSetup"))
-}
-
-val buildHermesConsole by tasks.registering(YarnTask::class) {
-    val tasksThatDontRequireConsole = listOf(
-        "integrationTest",
-        "slowIntegrationTest",
-        "check"
-    )
-    val shouldExecute = tasksThatDontRequireConsole.intersect(gradle.startParameter.taskNames.toSet()).isEmpty()
-    onlyIf { shouldExecute }
-
-    args = listOf("build-only")
-}
-
-tasks.named("yarn") {
-    finalizedBy(buildHermesConsole)
-}
-
-val attachHermesConsole by tasks.registering(Copy::class) {
-    dependsOn(buildHermesConsole)
-    from("../hermes-console/dist")
-    into(layout.buildDirectory.dir("resources/main/static"))
-}
-
-val prepareIndexTemplate by tasks.registering(Copy::class) {
-    val resourcesDir = tasks.processResources.map { it.destinationDir }
-    from(resourcesDir.map { it.resolve("resources/main/static/index.html") })
-    into(resourcesDir.map { it.resolve("resources/main/static/index.ftl") })
-}
-
-tasks.named("javadoc") {
-    dependsOn(attachHermesConsole, prepareIndexTemplate)
-}
-
-tasks.jar {
-    dependsOn(attachHermesConsole, prepareIndexTemplate)
-}
-
-tasks.named("run") {
-    dependsOn(attachHermesConsole, prepareIndexTemplate)
 }
 
