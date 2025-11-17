@@ -98,10 +98,6 @@ val prepareIndexTemplate by tasks.registering(Copy::class) {
     into(resourcesDir.map { it.resolve("resources/main/static/index.ftl") })
 }
 
-tasks.named("compileTestGroovy") {
-    dependsOn(attachHermesConsole, prepareIndexTemplate)
-}
-
 tasks.named("javadoc") {
     dependsOn(attachHermesConsole, prepareIndexTemplate)
 }
